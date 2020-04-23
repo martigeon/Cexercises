@@ -3,23 +3,25 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void read_data(FILE *fp, int *arr) {
-	// What does fscanf return?
-	// Why does the while statement not have a body?
-	// What if arr++ was changed to ++arr ?
-	// How could you check the bounds of the inserted array?
-	while (fscanf(fp, "%d\n", arr++) > 0);
+// What does this do?
+// What does fscanf return, how does it change *fp?
+// Can you access member variables of *fp?
+// What if *arr++ was changed to *++arr or ++*arr ?
+// How could you check the bounds of the inserted array?
+void do_stuff(FILE *fp, int *arr) {
+	while (fscanf(fp, "%d\n", arr) > 0)
+		printf("%d, ", *arr++);
+	printf("\n");
 }
 
 int main() {
-	FILE *fp = fopen("data.txt", "r"); // What is the second argument?
-	if (!fp) exit(1); // What would be a clearer way of writing the condition?
-
 	int arr[100];
-	read_data(fp, arr);
+	FILE *fp; 
 
-	for (int i = 0; i < 100; ++i) printf("%d, ", arr[i]);
-	printf("\n");
+	fp = fopen("data.txt", "r"); // What is the second argument?
 
+	if (fp)	do_stuff(fp, arr);
+
+	fclose(fp);
 	return 0;
 }
